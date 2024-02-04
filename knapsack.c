@@ -4,16 +4,23 @@ void selectItems(float weights[], float values[], char *items[], int numItems);
 
 int main() {
     char *items[] = {"A", "B", "C", "D", "E"};
-    float values[] = {35, 60, 100, 120, 130};
-    float weights[] = {2, 5, 6, 9, 10};
+    float values[5];
+    float weights[5];
     int numItems = 5;
+
+    // Input weights and values from the user
+    for (int i = 0; i < numItems; i++) {
+        printf("Enter weight for item %s: ", items[i]);
+        scanf("%f", &weights[i]);
+        printf("Enter value for item %s: ", items[i]);
+        scanf("%f", &values[i]);
+    }
 
     // Call the function to select items
     selectItems(weights, values, items, numItems);
 
     return 0;
 }
-
 void selectItems(float weights[], float values[], char *items[], int numItems) {
     float W = 20;
     int i, w;
