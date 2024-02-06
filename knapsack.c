@@ -1,55 +1,77 @@
 #include <stdio.h>
 
-void selectItems(float weights[], float values[], char *items[], int numItems);
+#define MAX_ITEMS 5
+#define MAX_WEIGHT 20
 
-int main() {
-    char *items[] = {"A", "B", "C", "D", "E"};
-    float values[5];
-    float weights[5];
-    int numItems = 5;
-
-    // Input weights and values from the user
-    for (int i = 0; i < numItems; i++) {
-        printf("Enter weight for item %s: ", items[i]);
-        scanf("%f", &weights[i]);
-        printf("Enter value for item %s: ", items[i]);
-        scanf("%f", &values[i]);
-    }
-
-    // Call the function to select items
-    selectItems(weights, values, items, numItems);
-
-    return 0;
-}
-void selectItems(float weights[], float values[], char *items[], int numItems) {
-    float W = 20;
+int knapSack(int weights[], int values[], int select_bool[])
+{
     int i, w;
-    float K[numItems + 1][W + 1];
+    int K[MAX_ITEMS + 1][MAX_WEIGHT + 1];
 
-    // Initialize the K matrix
-    for (i = 0; i <= numItems; i++) {
-        for (w = 0; w <= W; w++) {
+    // Build table K[][] in bottom-up manner
+    for (i = 0; i <= MAX_ITEMS; i++)
+    {
+        for (w = 0; w <= MAX_WEIGHT; w++)
+        {
             if (i == 0 || w == 0)
                 K[i][w] = 0;
             else if (weights[i - 1] <= w)
-                K[i][w] = fmax(values[i - 1] + K[i - 1][w - (int)weights[i - 1]], K[i - 1][w]);
+                K[i][w] = (values[i - 1] + K[i - 1][w - weights[i - 1]] > K[i - 1][w]) ? values[i - 1] + K[i - 1][w - weights[i - 1]] : K[i - 1][w];
             else
                 K[i][w] = K[i - 1][w];
         }
     }
 
-    // Find the items included in the knapsack
-    int resultWeight = W;
-    int resultValue = K[numItems][(int)W];
-    printf("Maximum profit: %d\n", (int)resultValue);
+    // Get the items selected
+    int max_profit = K[MAX_ITEMS][MAX_WEIGHT];
+    int temp = K[MAX_ITEMS][MAX_WEIGHT];
+    w = MAX_WEIGHT;
 
-    printf("Items that give the maximum profit: [");
-    for (i = numItems; i > 0 && resultValue > 0; i--) {
-        if (resultValue != K[i - 1][resultWeight]) {
-            printf("%s, ", items[i - 1]);
-            resultValue -= values[i - 1];
-            resultWeight -= weights[i - 1];
+    for (i = MAX_ITEMS; i > 0 && max_profit > 0; i--)
+    {
+        if (max_profit == K[i - 1][w])
+            continue;
+        else
+        {
+            select_bool[i - 1] = 1;
+            max_profit -= values[i - 1];
+            w -= weights[i - 1];
         }
     }
-    printf("]\n");
+
+    return temp;
+}
+
+void my_knapsack(int weights[], int values[])
+{
+    int select_bool[MAX_ITEMS] = {0};
+    int max_profit = knapSack(weights, values, select_bool);
+
+    printf("Maximum profit: %d\n", max_profit);
+
+    printf("Items that give the maximum profit: ");
+    for (int i = 0; i < MAX_ITEMS; i++)
+    {
+        if (select_bool[i])
+            printf("%c ", 'A' + i); // Adjust for 0-indexed array and char item names
+    }
+    printf("\n");
+}
+
+int main()
+{
+    int weights[MAX_ITEMS], values[MAX_ITEMS];
+
+    printf("Enter weights and values for each item:\n");
+    for (int i = 0; i < MAX_ITEMS; i++)
+    {
+        printf("Enter weight for item %c: ", 'A' + i); // Using 'A' + i to print char item names
+        scanf("%d", &weights[i]);
+        printf("Enter value for item %c: ", 'A' + i);
+        scanf("%d", &values[i]);
+    }
+
+    my_knapsack(weights, values);
+
+    return 0;
 }
