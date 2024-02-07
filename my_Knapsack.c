@@ -49,11 +49,11 @@ void my_knapsack(int weights[], int values[])
 
     printf("Maximum profit: %d\n", max_profit);
 
-    printf("Items that give the maximum profit: ");
+    printf("Selected items: ");
     for (int i = 0; i < MAX_ITEMS; i++)
     {
         if (select_bool[i])
-            printf("%c ", 'A' + i); // Adjust for 0-indexed array and char item names
+            printf("%c ", 'a' + i); // Adjust for 0-indexed array and char item names
     }
     printf("\n");
 }
@@ -65,9 +65,9 @@ int main()
     printf("Enter weights and values for each item:\n");
     for (int i = 0; i < MAX_ITEMS; i++)
     {
-        printf("Enter weight for item %c: ", 'A' + i); // Using 'A' + i to print char item names
+        printf("Enter weight for item %c: ", 'a' + i); // Using 'A' + i to print char item names
         scanf("%d", &weights[i]);
-        printf("Enter value for item %c: ", 'A' + i);
+        printf("Enter value for item %c: ", 'a' + i);
         scanf("%d", &values[i]);
     }
 
