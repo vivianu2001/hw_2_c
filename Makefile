@@ -16,4 +16,4 @@ my_graph: libmatrix.a main.o
 
 clean :
 	rm -f *.o connections libmatrix.a 
-all: connections
+all: my_graph
