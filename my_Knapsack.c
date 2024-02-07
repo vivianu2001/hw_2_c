@@ -56,7 +56,6 @@ void my_knapsack(int values[], int weights[])
         if (select_bool[i])
             printf("%c ", 'a' + i); // Adjust for 0-indexed array and char item names
     }
-    printf("\n");
 }
 
 int main()
