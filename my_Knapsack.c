@@ -62,7 +62,6 @@ int main()
 {
     int weights[MAX_ITEMS], values[MAX_ITEMS];
 
-    printf("Enter weights and values for each item:\n");
     for (int i = 0; i < MAX_ITEMS; i++)
     {
         char item;
