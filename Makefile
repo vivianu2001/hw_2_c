@@ -10,7 +10,7 @@ libmatrix.a: my_mat.o
 main.o: main.c my_mat.h
 	gcc  -c -fPIC -Wall main.c 
 
-connections: libmatrix.a main.o
+my_graph: libmatrix.a main.o
 	gcc -o connections main.o libmatrix.a 
 
 
