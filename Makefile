@@ -16,7 +16,6 @@ my_Knapsack: my_Knapsack.o
 	gcc -o -fPIC -Wall my_Knapsack.o
 my_Knapsack.o: my_Knapsack.c
 	gcc -c -fPIC -Wall my_Knapsack.c
-
 clean :
 	rm -f *.o my_graph my_Knapsack *.a *.o 
 all: libmatrix.a my_graph my_Knapsack
