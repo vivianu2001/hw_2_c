@@ -10,10 +10,12 @@ libmatrix.a: my_mat.o
 main.o: main.c my_mat.h
 	gcc  -c -fPIC -Wall main.c 
 
-connections: libmatrix.a main.o
-	gcc -o connections main.o libmatrix.a 
+my_graph: libmatrix.a main.o
+	gcc -o connections main.o libmatrix.a
+my_Knapsack: my_Knapsack.c
+	gcc -c -fPIC -Wall my_Knapsack.c 
 
 
 clean :
-	rm -f *.o connections libmatrix.a 
-all: connections
+	rm -f *.o my_graph my_Knapsack *.a *.o 
+all: libmatrix.a my_graph my_Knapsack
