@@ -1,3 +1,11 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 #include <stdio.h>
 
 #define MAX_ITEMS 5
@@ -42,7 +50,7 @@ int knapSack(int weights[], int values[], int select_bool[])
     return temp;
 }
 
-void my_knapsack(int weights[], int values[])
+void my_knapsack(int values[], int weights[])
 {
     int select_bool[MAX_ITEMS] = {0};
     int max_profit = knapSack(weights, values, select_bool);
@@ -65,13 +73,11 @@ int main()
     printf("Enter weights and values for each item:\n");
     for (int i = 0; i < MAX_ITEMS; i++)
     {
-        printf("Enter weight for item %c: ", 'a' + i); // Using 'A' + i to print char item names
-        scanf("%d", &weights[i]);
-        printf("Enter value for item %c: ", 'a' + i);
-        scanf("%d", &values[i]);
+        char item;
+        scanf(" %c %d %d",&item,&values[i],&weights[i]);
     }
 
-    my_knapsack(weights, values);
+    my_knapsack(values, weights);
 
     return 0;
 }
