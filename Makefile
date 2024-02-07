@@ -7,11 +7,11 @@ my_mat.o : my_mat.c my_mat.h
 libmatrix.a: my_mat.o
 	ar rcs libmatrix.a my_mat.o
 
-main.o: main.c my_mat.h
-	gcc  -c -fPIC -Wall main.c 
+my_graph.o: my_graph.c my_mat.h
+	gcc  -c -fPIC -Wall my_graph.c 
 
 my_graph: libmatrix.a main.o
-	gcc -o my_graph main.o libmatrix.a
+	gcc -o my_graph my_graph.o libmatrix.a
 my_Knapsack: my_Knapsack.c
 	gcc -Wall -fPIC my_Knapsack.c -o my_Knapsack
 clean :
