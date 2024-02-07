@@ -13,8 +13,8 @@ my_graph: libmatrix.a main.o
 my_Knapsack.o: my_Knapsack.c
 	gcc -c -fPIC -Wall my_Knapsack.c > compilation_my_Knapsack_out.txt 2>&1
 
-my_Knapsack: libmatrix.a my_Knapsack.o
-	gcc -o my_Knapsack my_Knapsack.o libmatrix.a > compilation_my_Knapsack_out.txt 2>&1
+my_Knapsack: my_Knapsack.o
+	gcc -o my_Knapsack my_Knapsack.o > compilation_my_Knapsack_out.txt 2>&1
 
 clean :
 	rm -f *.o my_graph my_Knapsack libmatrix.a 
