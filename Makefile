@@ -11,7 +11,7 @@ main.o: main.c my_mat.h
 	gcc  -c -fPIC -Wall main.c 
 
 my_graph: libmatrix.a main.o
-	gcc -o connections main.o libmatrix.a
+	gcc -o my_graph main.o libmatrix.a
 my_Knapsack: my_Knapsack.o
 	gcc -c -fPIC -Wall my_Knapsack.o
 my_Knapsack.o: my_Knapsack.c
