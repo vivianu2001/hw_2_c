@@ -58,13 +58,13 @@ void my_knapsack(int values[], int weights[])
         {
             if (last_selected != -1)
             {
-                printf(", ");
+                printf(" ");
             }
             printf("%c", 'a' + i); // Adjust for 0-indexed array and char item names
             last_selected = i;
         }
     }
-    printf("\n"); // End the line after printing all selected items
+   
 }
 
 
