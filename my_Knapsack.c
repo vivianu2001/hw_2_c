@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 #define MAX_ITEMS 5
@@ -13,11 +12,18 @@ int knapSack(int weights[], int values[], int select_bool[])
     for (i = 0; i <= MAX_ITEMS; i++)
     {
         for (w = 0; w <= MAX_WEIGHT; w++)
-        {
+        { // Initialize first row and column with zeros
             if (i == 0 || w == 0)
                 K[i][w] = 0;
+            // Fill the table based on the values and weights of items
             else if (weights[i - 1] <= w)
-                K[i][w] = (values[i - 1] + K[i - 1][w - weights[i - 1]] > K[i - 1][w]) ? values[i - 1] + K[i - 1][w - weights[i - 1]] : K[i - 1][w];
+            {
+                int newValue = values[i - 1] + K[i - 1][w - weights[i - 1]];
+                if (newValue > K[i - 1][w])
+                    K[i][w] = newValue;
+                else
+                    K[i][w] = K[i - 1][w];
+            }
             else
                 K[i][w] = K[i - 1][w];
         }
@@ -43,10 +49,10 @@ int knapSack(int weights[], int values[], int select_bool[])
     return temp;
 }
 
-void my_knapsack(int values[], int weights[])
+void my_knapsack(int values[], int weights[], int result[], char items[])
 {
-    int select_bool[MAX_ITEMS] = {0};
-    int max_profit = knapSack(weights, values, select_bool);
+
+    int max_profit = knapSack(weights, values, result);
 
     printf("Maximum profit: %d\n", max_profit);
 
@@ -54,31 +60,30 @@ void my_knapsack(int values[], int weights[])
     int last_selected = -1; // Index of the last selected item
     for (int i = 0; i < MAX_ITEMS; i++)
     {
-        if (select_bool[i])
+        if (result[i])
         {
             if (last_selected != -1)
             {
                 printf(" ");
             }
-            printf("%c", 'a' + i); // Adjust for 0-indexed array and char item names
+            printf("%c", items[i]); // Adjust for 0-indexed array and char item names
             last_selected = i;
         }
     }
-   
 }
-
 
 int main()
 {
-    int weights[MAX_ITEMS], values[MAX_ITEMS];
+    int weights[MAX_ITEMS], values[MAX_ITEMS], result[MAX_ITEMS] = {0};
+    char items[MAX_ITEMS];
 
     for (int i = 0; i < MAX_ITEMS; i++)
     {
         char item;
-        scanf(" %c %d %d",&item,&values[i],&weights[i]);
+        scanf(" %c %d %d", &items[i], &values[i], &weights[i]);
     }
 
-    my_knapsack(values, weights);
+    my_knapsack(values, weights, result, items);
 
     return 0;
 }
